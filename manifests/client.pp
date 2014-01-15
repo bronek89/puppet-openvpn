@@ -65,6 +65,10 @@
 #   Integer.  Level of logging verbosity
 #   Default: 3
 #
+# [*auth_user_pass*]
+#   Boolean. Enables system user authorization.
+#   Default: false
+#
 #
 # === Examples
 #
@@ -114,6 +118,7 @@ define openvpn::client(
   $remote_host = $::fqdn,
   $resolv_retry = 'infinite',
   $verb = '3',
+  $auth_user_pass = false,
 ) {
 
   Openvpn::Server[$server] ->

@@ -23,6 +23,8 @@ class openvpn::params {
 
   case $::osfamily {
     'RedHat': {
+      $plugins_prefix = '/usr/share/openvpn/plugin/lib/openvpn-'
+        
       if($::operatingsystemmajrelease >= 6) { # Redhat/Centos >= 6
         # http://docs.puppetlabs.com/references/latest/function.html#versioncmp
         if(versioncmp($::operatingsystemrelease, '6.4') < 0) { # Version < 6.4
@@ -40,6 +42,12 @@ class openvpn::params {
       }
     }
     default: { # Debian/Ubuntu
+      if($::operatingsystem == 'Ubuntu') {
+        $plugins_prefix = '/usr/lib/openvpn/openvpn-plugin-'
+      } else {
+        $plugins_prefix = '/usr/lib/openvpn/openvpn-'
+      }
+      
       if($::operatingsystemmajrelease == 'jessie/sid' or $::lsbdistdescription == 'Ubuntu 13.10'){
       package { 'easy-rsa':
             ensure => installed,

@@ -85,6 +85,14 @@
 #     Should match the form "n m".
 #   Default: None
 #
+# [*plugin*]
+#   Array. Array of plugins names.
+#   Default: []
+#
+# [*client_to_client*]
+#   Bool. Enables client-to-client directive
+#   Default: false
+#
 #
 # === Examples
 #
@@ -140,7 +148,9 @@ define openvpn::server(
   $server = '',
   $push = [],
   $route = [],
-  $keepalive = ''
+  $keepalive = '',
+  $plugin = [ [ 'auth-pam', 'login' ] ],
+  $client_to_client = false,
 ) {
 
   include openvpn
@@ -157,6 +167,8 @@ define openvpn::server(
     false   => $openvpn::params::group,
     default => $group
   }
+  
+  $plugins_prefix = $openvpn::params::plugins_prefix
 
   file {
     ["/etc/openvpn/${name}", "/etc/openvpn/${name}/client-configs", "/etc/openvpn/${name}/download-configs" ]:
