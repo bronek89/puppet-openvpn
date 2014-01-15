@@ -42,7 +42,7 @@ route <%= item %>
 keepalive <%= scope.lookupvar('keepalive') %>
 <% end -%>
 <% scope.lookupvar('plugin').each do |item| -%>
-plugin <%= scope.lookupvar('plugins_prefix') %><%= item.0 %>.so <%= item.1 %>
+plugin <%= scope.lookupvar('plugins_prefix') %><%= item[0] %>.so <%= item[1] %>
 <% end -%>
 <% if scope.lookupvar('client_to_client') -%>
 client-to-client
